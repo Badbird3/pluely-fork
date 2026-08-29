@@ -19,7 +19,7 @@ export const useWindowResize = () => {
         return;
       }
 
-      const newHeight = expanded ? 600 : 54;
+      const newHeight = expanded ? 800 : 54; // Changed from 600 to 800
 
       await invoke("set_window_height", {
         window,
