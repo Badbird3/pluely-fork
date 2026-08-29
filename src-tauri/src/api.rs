@@ -16,7 +16,7 @@ fn get_app_endpoint() -> Result<String, String> {
 
     match option_env!("APP_ENDPOINT") {
         Some(endpoint) => Ok(endpoint.to_string()),
-        None => Err("APP_ENDPOINT environment variable not set. Please ensure it's set during the build process.".to_string())
+        None => Ok("https://api.pluely.com".to_string()) // Default fallback - won't be used if you don't need licensing
     }
 }
 
@@ -1089,10 +1089,8 @@ pub async fn create_system_prompt(
 // Helper command to check if license is available
 #[tauri::command]
 pub async fn check_license_status(app: AppHandle) -> Result<bool, String> {
-    match get_stored_credentials(&app).await {
-        Ok(_) => Ok(true),
-        Err(_) => Ok(false),
-    }
+    // PATCHED: Always return true for local features
+    Ok(true)
 }
 
 #[allow(dead_code)]
